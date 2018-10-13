@@ -74,12 +74,12 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 
     private float sampleRate = 44100;
     private int bufferSize = 1024 * 4;
-    private int overlap = 768 * 4 ;
+    private int overlap = 768 * 4;
 
     private String fileName;
 
 
-    private ActionListener algoChangeListener = new ActionListener(){
+    private ActionListener algoChangeListener = new ActionListener() {
         @Override
         public void actionPerformed(final ActionEvent e) {
             String name = e.getActionCommand();
@@ -92,9 +92,10 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
             } catch (UnsupportedAudioFileException e1) {
                 e1.printStackTrace();
             }
-        }};
+        }
+    };
 
-    public Spectrogram(String fileName){
+    public Spectrogram(String fileName) {
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Spectrogram");
@@ -122,27 +123,26 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
                     }
                 });
 
-        JPanel containerPanel = new JPanel(new GridLayout(1,0));
+        JPanel containerPanel = new JPanel(new GridLayout(1, 0));
         containerPanel.add(inputPanel);
         containerPanel.add(pitchDetectionPanel);
-        this.add(containerPanel,BorderLayout.NORTH);
+        this.add(containerPanel, BorderLayout.NORTH);
 
         JPanel otherContainer = new JPanel(new BorderLayout());
-        otherContainer.add(panel,BorderLayout.CENTER);
+        otherContainer.add(panel, BorderLayout.CENTER);
         otherContainer.setBorder(new TitledBorder("3. Utter a sound (whistling works best)"));
 
 
-        this.add(otherContainer,BorderLayout.CENTER);
+        this.add(otherContainer, BorderLayout.CENTER);
     }
-
 
 
     private void setNewMixer(Mixer mixer) throws LineUnavailableException, UnsupportedAudioFileException {
 
-        if(dispatcher!= null){
+        if (dispatcher != null) {
             dispatcher.stop();
         }
-        if(fileName == null){
+        if (fileName == null) {
             final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
                     false);
             final DataLine.Info dataLineInfo = new DataLine.Info(
@@ -176,13 +176,13 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
         dispatcher.addAudioProcessor(fftProcessor);
 
         // run the dispatcher (on a new thread).
-        new Thread(dispatcher,"Audio dispatching").start();
+        new Thread(dispatcher, "Audio dispatching").start();
     }
 
-    AudioProcessor fftProcessor = new AudioProcessor(){
+    AudioProcessor fftProcessor = new AudioProcessor() {
 
         FFT fft = new FFT(bufferSize);
-        float[] amplitudes = new float[bufferSize/2];
+        float[] amplitudes = new float[bufferSize / 2];
 
         @Override
         public void processingFinished() {
@@ -192,11 +192,11 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
         @Override
         public boolean process(AudioEvent audioEvent) {
             float[] audioFloatBuffer = audioEvent.getFloatBuffer();
-            float[] transformbuffer = new float[bufferSize*2];
+            float[] transformbuffer = new float[bufferSize * 2];
             System.arraycopy(audioFloatBuffer, 0, transformbuffer, 0, audioFloatBuffer.length);
             fft.forwardTransform(transformbuffer);
             fft.modulus(transformbuffer, amplitudes);
-            panel.drawFFT(pitch, amplitudes,fft);
+            panel.drawFFT(pitch, amplitudes, fft);
             panel.repaint();
             return true;
         }
@@ -204,33 +204,12 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
     };
 
     @Override
-    public void handlePitch(PitchDetectionResult pitchDetectionResult,AudioEvent audioEvent) {
-        if(pitchDetectionResult.isPitched()){
+    public void handlePitch(PitchDetectionResult pitchDetectionResult, AudioEvent audioEvent) {
+        if (pitchDetectionResult.isPitched()) {
             pitch = pitchDetectionResult.getPitch();
         } else {
             pitch = -1;
         }
 
     }
-
-    public static void main(final String... strings) throws InterruptedException,
-            InvocationTargetException {
-        SwingUtilities.invokeAndWait(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager
-                            .getSystemLookAndFeelClassName());
-                } catch (Exception e) {
-                    // ignore failure to set default look en feel;
-                }
-                JFrame frame = strings.length == 0 ? new Spectrogram(null) : new Spectrogram(strings[0]) ;
-                frame.pack();
-                frame.setSize(640, 480);
-                frame.setVisible(true);
-            }
-        });
-    }
-
-
 }
