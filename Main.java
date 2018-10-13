@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(final String... strings) throws InterruptedException,
+    public static void main(String args[]) throws InterruptedException,
             InvocationTargetException {
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override
@@ -36,7 +36,11 @@ public class Main {
                 frame.pack();
                 frame.setSize(640, 480);
                 frame.setVisible(true);
+                ((Spectrogram) frame).exportToPNG();
             }
+
         });
     }
+
+
 }

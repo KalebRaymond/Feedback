@@ -212,4 +212,10 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
         }
 
     }
+
+    public void exportToPNG()
+    {
+        this.panel.exportToPNG();
+    }
+
 }

@@ -30,7 +30,9 @@ import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import be.tarsos.dsp.util.PitchConverter;
@@ -88,7 +90,7 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
         double maxAmplitude=0;
         //for every pixel calculate an amplitude
         float[] pixeledAmplitudes = new float[getHeight()];
-        //iterate the lage arrray and map to pixels
+        //iterate the large array and map to pixels
         for (int i = amplitudes.length/800; i < amplitudes.length; i++) {
             int pixelY = frequencyToBin(i * 44100 / (amplitudes.length * 8));
             pixeledAmplitudes[pixelY] += amplitudes[i];
@@ -101,7 +103,7 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
             if (maxAmplitude != 0) {
 
                 final int greyValue = (int) (Math.log1p(pixeledAmplitudes[i] / maxAmplitude) / Math.log1p(1.0000001) * 255);
-                color = new Color(greyValue, greyValue, greyValue);
+                color = new Color(greyValue , greyValue, greyValue);
             }
             bufferedGraphics.setColor(color);
             bufferedGraphics.fillRect(position, i, 3, 1);
@@ -158,6 +160,16 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
 
     @Override
     public void componentShown(ComponentEvent e) {
+    }
+
+    public void exportToPNG()
+    {
+        BufferedImage exp = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = exp.createGraphics();
+        this.paint(g);
+        g.dispose();
+        try{
+            ImageIO.write(exp,"png",new File("test.png"));}catch (Exception e) {}
     }
 
 }
