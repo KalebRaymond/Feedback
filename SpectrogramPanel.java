@@ -38,12 +38,15 @@ import javax.swing.JComponent;
 import be.tarsos.dsp.util.PitchConverter;
 import be.tarsos.dsp.util.fft.FFT;
 
+import java.util.*;
+
 public class SpectrogramPanel extends JComponent implements ComponentListener{
     /**
      *
      */
     private static final long serialVersionUID = -3729805747119272534L;
-
+    private static Vector<Double> pitches, times;
+    Double prev_time = Double.valueOf((double) System.currentTimeMillis());
     private BufferedImage bufferedImage;
     private Graphics2D bufferedGraphics;
 
@@ -98,22 +101,38 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
         }
 
         //draw the pixels
+        int maxGrey = Integer.MIN_VALUE;
+        int minY = 0;
         for (int i = 0; i < pixeledAmplitudes.length; i++) {
             Color color = Color.black;
+
             if (maxAmplitude != 0) {
 
                 final int greyValue = (int) (Math.log1p(pixeledAmplitudes[i] / maxAmplitude) / Math.log1p(1.0000001) * 255);
                 color = new Color(greyValue , greyValue, greyValue);
+                if(greyValue > maxGrey)
+                {
+                    minY = i;
+                    maxGrey = greyValue;
+                }
             }
+
+
+
             bufferedGraphics.setColor(color);
             bufferedGraphics.fillRect(position, i, 3, 1);
         }
+        double dt = Double.valueOf((double) System.currentTimeMillis()) - prev_time;
+        System.out.println(dt / 1000.0 + ", " + minY);
 
 
         if (pitch != -1) {
             int pitchIndex = frequencyToBin(pitch);
             bufferedGraphics.setColor(Color.RED);
             bufferedGraphics.fillRect(position, pitchIndex, 3, 1);
+
+
+
             //currentPitch = new StringBuilder("Current frequency: ").append((int) pitch).append("Hz").toString();
         }
 
@@ -137,6 +156,9 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
             int bin = frequencyToBin(i);
             bufferedGraphics.drawString(String.valueOf(i), 10, bin);
         }*/
+
+        //pitches.add(Double.valueOf(currentPitch));
+        //times.add(Double.valueOf((double) System.currentTimeMillis()) - prev_time);
 
         repaint();
         position+=3;

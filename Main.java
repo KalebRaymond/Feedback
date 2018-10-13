@@ -21,7 +21,7 @@ public class Main {
                 JFrame frame;
                 Scanner s = new Scanner(System.in);
                 System.out.println("(m)ic or (f)ile input?");
-                switch(s.nextLine().toLowerCase()) {
+                switch (s.nextLine().toLowerCase()) {
                     case "f":
                         System.out.println("Enter filepath of mp3: ");
                         String filepath = s.nextLine();
@@ -38,6 +38,7 @@ public class Main {
                 frame.setVisible(true);
                 ((Spectrogram) frame).export(0);
             }
+
 
         });
     }
