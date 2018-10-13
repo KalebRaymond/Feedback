@@ -66,6 +66,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
      *
      */
     private static final long serialVersionUID = 1383896180290138076L;
+    private static int export_count = 1;
     private final SpectrogramPanel panel;
     private AudioDispatcher dispatcher;
     private Mixer currentMixer;
@@ -92,6 +93,8 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
             } catch (UnsupportedAudioFileException e1) {
                 e1.printStackTrace();
             }
+
+            algo = PitchEstimationAlgorithm.YIN;
         }
     };
 
@@ -198,7 +201,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
             fft.modulus(transformbuffer, amplitudes);
             panel.drawFFT(pitch, amplitudes, fft);
             panel.repaint();
-            panel.exportToPNG();
+            panel.exportToPNG(export_count);
             return true;
         }
 
@@ -214,9 +217,11 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 
     }
 
-    public void export()
+    public void export(int export_count)
     {
-        this.panel.exportToPNG();
+        this.panel.exportToPNG(export_count);
     }
+
+
 
 }

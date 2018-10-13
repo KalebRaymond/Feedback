@@ -172,4 +172,14 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
             ImageIO.write(exp,"png",new File("spectrogram.png"));}catch (Exception e) {}
     }
 
+    public void exportToPNG(int count)
+    {
+        BufferedImage exp = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = exp.createGraphics();
+        this.paint(g);
+        g.dispose();
+        try{
+            ImageIO.write(exp,"png",new File("spectrogram" + String.valueOf(count) + ".png"));}catch (Exception e) {}
+    }
+
 }

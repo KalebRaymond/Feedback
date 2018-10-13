@@ -36,7 +36,7 @@ public class Main {
                 frame.pack();
                 frame.setSize(640, 480);
                 frame.setVisible(true);
-                //((Spectrogram) frame).export();
+                ((Spectrogram) frame).export(0);
             }
 
         });
