@@ -182,7 +182,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
     AudioProcessor fftProcessor = new AudioProcessor() {
 
         FFT fft = new FFT(bufferSize);
-        float[] amplitudes = new float[bufferSize / 2];
+        float[] amplitudes = new float[bufferSize / 8];
 
         @Override
         public void processingFinished() {
@@ -192,7 +192,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
         @Override
         public boolean process(AudioEvent audioEvent) {
             float[] audioFloatBuffer = audioEvent.getFloatBuffer();
-            float[] transformbuffer = new float[bufferSize * 2];
+            float[] transformbuffer = new float[bufferSize * 8];
             System.arraycopy(audioFloatBuffer, 0, transformbuffer, 0, audioFloatBuffer.length);
             fft.forwardTransform(transformbuffer);
             fft.modulus(transformbuffer, amplitudes);
