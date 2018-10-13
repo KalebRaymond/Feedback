@@ -1,4 +1,4 @@
-# TeamTeam2018
+# Team Team BlueHack 2018
 ## Learning to play an instrument with live feedback, without the cost and time of tutor
 
 Comparing WAV files - https://stackoverflow.com/questions/471165/comparing-sound-files-if-not-completely-identical  
