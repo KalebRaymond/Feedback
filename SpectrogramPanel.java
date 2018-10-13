@@ -113,8 +113,8 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
         if (pitch != -1) {
             int pitchIndex = frequencyToBin(pitch);
             bufferedGraphics.setColor(Color.RED);
-            bufferedGraphics.fillRect(position, pitchIndex, 1, 1);
-            currentPitch = new StringBuilder("Current frequency: ").append((int) pitch).append("Hz").toString();
+            bufferedGraphics.fillRect(position, pitchIndex, 3, 1);
+            //currentPitch = new StringBuilder("Current frequency: ").append((int) pitch).append("Hz").toString();
         }
 
 
@@ -123,7 +123,7 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
         bufferedGraphics.setColor(Color.WHITE);
         bufferedGraphics.drawString(currentPitch, 20, 20);
 
-        for(int i = 100 ; i < 500; i += 100){
+        /*for(int i = 100 ; i < 500; i += 100){
             int bin = frequencyToBin(i);
             bufferedGraphics.drawLine(0, bin, 5, bin);
         }
@@ -136,7 +136,7 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
         for(int i = 100 ; i <= 20000; i*=10){
             int bin = frequencyToBin(i);
             bufferedGraphics.drawString(String.valueOf(i), 10, bin);
-        }
+        }*/
 
         repaint();
         position+=3;
@@ -169,7 +169,7 @@ public class SpectrogramPanel extends JComponent implements ComponentListener{
         this.paint(g);
         g.dispose();
         try{
-            ImageIO.write(exp,"png",new File("test.png"));}catch (Exception e) {}
+            ImageIO.write(exp,"png",new File("spectrogram.png"));}catch (Exception e) {}
     }
 
 }

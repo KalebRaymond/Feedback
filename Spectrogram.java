@@ -198,6 +198,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
             fft.modulus(transformbuffer, amplitudes);
             panel.drawFFT(pitch, amplitudes, fft);
             panel.repaint();
+            panel.exportToPNG();
             return true;
         }
 
@@ -213,7 +214,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 
     }
 
-    public void exportToPNG()
+    public void export()
     {
         this.panel.exportToPNG();
     }
