@@ -6,4 +6,4 @@ How does Shazam work? - https://web.archive.org/web/20161024115723/http://www.so
 https://en.wikipedia.org/wiki/Acoustic_fingerprint    
 https://en.wikipedia.org/wiki/Spectrogram  
 https://github.com/JorenSix/TarsosDSP
-
+0110.be/releases/TarsosDSP/TarsosDSP-latest/TarsosDSP-latest.jar
