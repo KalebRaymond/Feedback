@@ -23,7 +23,7 @@ public class Main {
                 System.out.println("(m)ic or (f)ile input?");
                 switch (s.nextLine().toLowerCase()) {
                     case "f":
-                        System.out.println("Enter filepath of mp3: ");
+                        System.out.println("Enter filepath of wav: ");
                         String filepath = s.nextLine();
                         frame = new Spectrogram(filepath);
                         break;
