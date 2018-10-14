@@ -8,6 +8,6 @@ https://en.wikipedia.org/wiki/Spectrogram
 https://github.com/JorenSix/TarsosDSP
 0110.be/releases/TarsosDSP/TarsosDSP-latest/TarsosDSP-latest.jar
 
-![User Input](TeamTeam/master/Feedback/demo1.png?raw=true)
+![User Input](demo1.png?raw=true)
 
-![Spectrogram](Feedback/demo2.png?raw=true)
+![Spectrogram](demo2.png?raw=true)
