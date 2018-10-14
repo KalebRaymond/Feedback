@@ -7,3 +7,7 @@ https://en.wikipedia.org/wiki/Acoustic_fingerprint
 https://en.wikipedia.org/wiki/Spectrogram  
 https://github.com/JorenSix/TarsosDSP
 0110.be/releases/TarsosDSP/TarsosDSP-latest/TarsosDSP-latest.jar
+
+https://github.com/TeamTeam2018/Feedback/demo1.png  
+
+https://github.com/TeamTeam2018/Feedback/demo2.png
